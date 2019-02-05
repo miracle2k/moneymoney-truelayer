@@ -90,6 +90,7 @@ function InitializeSession2(protocol, bankCode, step, credentials, interactive)
         authenticated = true
       else
         print("Existing access token no longer valid, and refresh failed")
+        return "The API server of TrueLayer has denied access. Please use the menu function »Edit Login Data« to setup the API access again."
       end
     end
 
