@@ -76,15 +76,19 @@ function InitializeSession2(protocol, bankCode, step, credentials, interactive)
 
     -- Check if access token is still valid.
     local authenticated = false
-    if LocalStorage.accessToken and os.time() < LocalStorage.expiresAt then
-      print("Existing access token still valid, keep it")
+    if LocalStorage.accessToken then
+      -- Will refresh the token if it is necessary
+      refreshAccessToken()
 
-      -- TODO: Do a test request
-      -- local whoami = queryPrivate("ping/whoami")
-      -- authenticated = whoami and whoami["authenticated"]
-      authenticated = true
-    else
-      print("Existing access token no longer valid")
+      -- Refresh successful?
+      if os.time() < LocalStorage.expiresAt then
+        -- TODO: Do a test request
+        -- local whoami = queryPrivate("ping/whoami")
+        -- authenticated = whoami and whoami["authenticated"]
+        authenticated = true
+      else
+        print("Existing access token no longer valid, and refresh failed")
+      end
     end
 
     -- Obtain OAuth 2.0 authorization code from web browser.
