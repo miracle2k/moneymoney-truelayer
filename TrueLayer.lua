@@ -35,6 +35,8 @@ local API_SECRET = ""
 
 
 local BANK_CODE = "TrueLayer"
+local REDIRECT_URI = "https://service.moneymoney-app.com/1/redirect"
+--local REDIRECT_URI = "moneymoney-app://oauth"
 
 WebBanking {
   version = 0.1,
@@ -101,7 +103,7 @@ function InitializeSession2(protocol, bankCode, step, credentials, interactive)
       options["client_id"] = MM.urlencode(clientId)
       options["nonce"] = "" .. os.time()
       options["scope"] = MM.urlencode("info accounts balance transactions cards offline_access")
-      options["redirect_uri"] = "moneymoney-app://oauth"
+      options["redirect_uri"] = REDIRECT_URI
       options["response_type"] = "code"
     
       print("Returning an oAuth request to MoneyMoney")
@@ -297,7 +299,7 @@ function requestAccessToken(code)
   
   local body = {}
   body["grant_type"] = "authorization_code"  
-  body["redirect_uri"] = "moneymoney-app://oauth"
+  body["redirect_uri"] = REDIRECT_URI
   body["code"] = code
   handleAuthRequest(body)
 end
