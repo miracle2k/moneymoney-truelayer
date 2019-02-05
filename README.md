@@ -16,7 +16,12 @@ You need to create your own TrueLayer account, and get your own API key, which i
 Installation
 ------------
 
-#### 1. Copy the `TrueLayer.lua` file here into MoneyMoney's Extension folder
+#### 1. Be sure to install the beta version of MoneyMoney.
+
+Download the beta version from [moneymoney-app.com/beta/](https://moneymoney-app.com/beta/).
+
+
+#### 2. Copy the `TrueLayer.lua` file here into MoneyMoney's Extension folder
 
   * Open MoneyMoney.app
   * Tap "Hilfe", "Show Database in Finder"
@@ -36,7 +41,7 @@ Installation
     local API_SECRET = "daf37850-f3a8-4d49-9b48-3b7fb23f2f74"
     ```
 
-#### 2. Disable Signature Check
+#### 3. Disable Signature Check
 
 This needs a beta version of MoneyMoney.
 
@@ -47,23 +52,9 @@ This needs a beta version of MoneyMoney.
   * Allow unsigned extensions
 
 
-#### 3. Setup the redirect url.
+#### 4. Setup the redirect url.
 
-This part is unfortunately quite difficult, but I hope TrueLayer will make it easier in the future.
-
-You need to add `moneymoney-app://oauth` as a redirect URL to your "application" on TrueLayer. 
-Unfortunately, the TrueLayer dashboard currently has a validation where it only allows regular
-`http(s)://` urls, so you need to use the API to add the url.
-
-  * Use the developer tools in your browser to find the dashboard authorization header used.
-
-  * Execute this request in a terminal:
-
-    ```
-    curl 'https://clients-api.truelayer.com/clients/YOUR_CLIENT_ID' -X PATCH -H 'Origin: https://console.truelayer.com' -H 'Accept-Encoding: gzip, deflate, br' -H 'Authorization: Bearer YOUR_AUTH_TOKEN' -H 'Content-Type: application/json' -H 'Accept: application/json' --data-binary '{"redirectURIs":["moneymoney-app://oauth","https://console.truelayer.com/redirect-page"]}' --compressed
-    ```
-
-The easiest option might be to add a regular URL in the dashboard, find the request in the network tab, copy it as `cURL`, then change the data sent to include the fake redirect URL.
+You need to add `https://service.moneymoney-app.com/1/redirect` as a redirect URL to your "application" on TrueLayer. 
 
 
 Add account
